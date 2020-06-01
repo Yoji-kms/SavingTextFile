@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/popupAddElementLayoutId"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="16dp"
+    tools:context=".AddItemPopup">
+
+    <TextView
+        android:id="@+id/enterTextToAddTxtViewId"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/enterTextToAddEdtTxtId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_the_text"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/enterTextToAddEdtTxtId"
+        app:layout_constraintTop_toBottomOf="@id/enterTextToAddTxtViewId"
+        app:layout_constraintBottom_toTopOf="@id/addButtonId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/some_text"
+        android:autofillHints="" />
+
+    <Button
+        android:id="@+id/addButtonId"
+        android:enabled="false"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_default"
+        android:backgroundTint="@android:color/holo_purple"
+        android:textColor="@android:color/white"
+        android:text="@string/add"
+        app:layout_constraintBottom_toTopOf="@id/cancelButtonId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enterTextToAddEdtTxtId" />
+
+    <Button
+        android:id="@+id/cancelButtonId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_default"
+        android:backgroundTint="@android:color/holo_purple"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/addButtonId"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/cancel"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
