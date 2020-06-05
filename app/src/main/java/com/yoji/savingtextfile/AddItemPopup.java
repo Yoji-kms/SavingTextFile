@@ -18,13 +18,10 @@ public class AddItemPopup extends Activity {
     private EditText addItemEdtTxt;
     private Button addBtn;
 
-    private View.OnClickListener cancelBtnOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent();
-            setResult(Activity.RESULT_CANCELED, intent);
-            finish();
-        }
+    private View.OnClickListener cancelBtnOnClickListener = v -> {
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_CANCELED, intent);
+        finish();
     };
 
     private View.OnClickListener addBtnOnClickListener = new View.OnClickListener() {

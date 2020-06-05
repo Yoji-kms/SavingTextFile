@@ -27,12 +27,7 @@ public class ItemDataAdapter extends BaseAdapter {
     private File dataTxtFile;
     private FileWriter dataTxtFileWriter;
 
-    private View.OnClickListener deleteButtonOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            removeItem((Integer) v.getTag());
-        }
-    };
+    private View.OnClickListener deleteButtonOnClickListener = v -> removeItem((Integer) v.getTag());
 
     private View.OnLongClickListener viewOnLongClickListener = new View.OnLongClickListener() {
         @Override
@@ -49,7 +44,7 @@ public class ItemDataAdapter extends BaseAdapter {
     }
 
     public ItemDataAdapter(Context context, String[] itemList) {
-        dataTxtFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+        dataTxtFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
                 "data.txt");
         if (dataTxtFile.exists()) {
             this.itemList = readContentFromFile();
@@ -104,6 +99,7 @@ public class ItemDataAdapter extends BaseAdapter {
 
     private void createDataTxtFile() {
         try {
+            //noinspection ResultOfMethodCallIgnored
             dataTxtFile.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();

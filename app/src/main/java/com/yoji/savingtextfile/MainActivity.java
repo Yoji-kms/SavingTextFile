@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -26,16 +25,13 @@ public class MainActivity extends AppCompatActivity {
     private String[] content;
     private ItemDataAdapter listItemDataAdapter;
 
-    private View.OnClickListener addItemFabOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(MainActivity.this, AddItemPopup.class);
-            Blurry.with(MainActivity.this)
-                    .sampling(100)
-                    .color(Color.DKGRAY)
-                    .onto((ViewGroup) findViewById(R.id.mainLayoutId));
-            startActivityForResult(intent, Code.REQUEST_CODE);
-        }
+    private View.OnClickListener addItemFabOnClickListener = v -> {
+        Intent intent = new Intent(MainActivity.this, AddItemPopup.class);
+        Blurry.with(MainActivity.this)
+                .sampling(100)
+                .color(Color.DKGRAY)
+                .onto(findViewById(R.id.mainLayoutId));
+        startActivityForResult(intent, Code.REQUEST_CODE);
     };
 
     @Override
@@ -78,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Blurry.delete((ViewGroup) findViewById(R.id.mainLayoutId));
+        Blurry.delete(findViewById(R.id.mainLayoutId));
     }
 
     private ItemDataAdapter createItemDataAdapter() {
