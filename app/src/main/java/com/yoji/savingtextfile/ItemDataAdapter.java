@@ -25,7 +25,6 @@ public class ItemDataAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private final static String SEPARATOR = ";;;;;";
     private File dataTxtFile;
-    private FileWriter dataTxtFileWriter;
 
     private View.OnClickListener deleteButtonOnClickListener = v -> removeItem((Integer) v.getTag());
 
@@ -108,13 +107,10 @@ public class ItemDataAdapter extends BaseAdapter {
     }
 
     private void writeContentToFile(){
-        try {
-            clearTextFile();
-            dataTxtFileWriter = new FileWriter(dataTxtFile, true);
-            for (String string : itemList) {
+        try (FileWriter dataTxtFileWriter = new FileWriter(dataTxtFile)) {
+           for (String string : itemList) {
                 dataTxtFileWriter.append(string).append(SEPARATOR).append("\n");
             }
-            dataTxtFileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -139,7 +135,7 @@ public class ItemDataAdapter extends BaseAdapter {
 
     public void appendStringToFile(String addingString) {
         try {
-            dataTxtFileWriter = new FileWriter(dataTxtFile, true);
+            FileWriter dataTxtFileWriter = new FileWriter(dataTxtFile, true);
             dataTxtFileWriter.append(addingString).append(SEPARATOR);
             dataTxtFileWriter.close();
         } catch (IOException e) {
@@ -147,15 +143,5 @@ public class ItemDataAdapter extends BaseAdapter {
         }
         itemList = readContentFromFile();
         notifyDataSetChanged();
-    }
-
-    private void clearTextFile(){
-        try {
-            dataTxtFileWriter = new FileWriter(dataTxtFile);
-            dataTxtFileWriter.write("");
-            dataTxtFileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -1,9 +1,7 @@
 package com.yoji.savingtextfile;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -24,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String[] content;
     private ItemDataAdapter listItemDataAdapter;
+    private final int REQUEST_CODE = 10;
 
     private View.OnClickListener addItemFabOnClickListener = v -> {
         Intent intent = new Intent(MainActivity.this, AddItemPopup.class);
@@ -31,14 +28,14 @@ public class MainActivity extends AppCompatActivity {
                 .sampling(100)
                 .color(Color.DKGRAY)
                 .onto(findViewById(R.id.mainLayoutId));
-        startActivityForResult(intent, Code.REQUEST_CODE);
+        startActivityForResult(intent, REQUEST_CODE);
     };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == Code.REQUEST_CODE){
+        if (requestCode == REQUEST_CODE){
             if(resultCode == Activity.RESULT_OK){
                 assert data != null;
                 String result = data.getStringExtra("result");
@@ -51,11 +48,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        boolean permissionGranted = permissionRequest();
-        if (!permissionGranted){
-            finish();
-        }
 
         content = prepareContent();
 
@@ -84,15 +76,5 @@ public class MainActivity extends AppCompatActivity {
     @NonNull
     private String[] prepareContent() {
         return getString(R.string.large_text).split("\n\n");
-    }
-
-    private boolean permissionRequest() {
-        int permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (permissionStatus == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    Code.READ_STORAGE);
-        }
-        return permissionStatus == PackageManager.PERMISSION_GRANTED;
     }
 }
