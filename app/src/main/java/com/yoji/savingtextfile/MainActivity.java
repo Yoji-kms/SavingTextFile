@@ -14,6 +14,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Objects;
+
 import jp.wasabeef.blurry.Blurry;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,8 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_CODE){
             if(resultCode == Activity.RESULT_OK){
-                assert data != null;
-                String result = data.getStringExtra("result");
+                String result = Objects.requireNonNull(data).getStringExtra("result");
                 listItemDataAdapter.appendStringToFile(result);
             }
         }
