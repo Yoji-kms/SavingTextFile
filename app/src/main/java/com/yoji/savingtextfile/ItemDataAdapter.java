@@ -22,13 +22,13 @@ import java.util.List;
 public class ItemDataAdapter extends BaseAdapter {
 
     private List<String> itemList;
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
     private final static String SEPARATOR = ";;;;;";
-    private File dataTxtFile;
+    private final File dataTxtFile;
 
-    private View.OnClickListener deleteButtonOnClickListener = v -> removeItem((Integer) v.getTag());
+    private final View.OnClickListener deleteButtonOnClickListener = v -> removeItem((Integer) v.getTag());
 
-    private View.OnLongClickListener viewOnLongClickListener = new View.OnLongClickListener() {
+    private final View.OnLongClickListener viewOnLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
             Toast.makeText(v.getContext(), itemList.get((Integer) v.getTag()), Toast.LENGTH_LONG).show();
@@ -119,13 +119,11 @@ public class ItemDataAdapter extends BaseAdapter {
     private List<String> readContentFromFile() {
         String[] contentFromFile;
         StringBuilder text = new StringBuilder();
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(dataTxtFile));
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(dataTxtFile))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 text.append(line);
             }
-            bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -134,10 +132,8 @@ public class ItemDataAdapter extends BaseAdapter {
     }
 
     public void appendStringToFile(String addingString) {
-        try {
-            FileWriter dataTxtFileWriter = new FileWriter(dataTxtFile, true);
+        try (FileWriter dataTxtFileWriter = new FileWriter(dataTxtFile, true)) {
             dataTxtFileWriter.append(addingString).append(SEPARATOR);
-            dataTxtFileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
