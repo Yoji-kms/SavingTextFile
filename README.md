@@ -2,7 +2,7 @@
 
 ### [Задание](https://github.com/netology-code/and-homeworks/tree/master/5.1.External/5.1.1):
 
-Пора сделать наш [список примеров завершенным](https://github.com/Yoji-kms/AppBarInApplication). Для полноты работы ему не хватает добавления/удаления Sample-ов.
+Пора сделать наш [список примеров](https://github.com/Yoji-kms/AppBarInApplication) завершенным. Для полноты работы ему не хватает добавления/удаления Sample-ов.
 
 Измените логику формирования списка примеров, переведя ее с SharedPrefs на внешние файлы.
 
